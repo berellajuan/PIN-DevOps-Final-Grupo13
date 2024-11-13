@@ -48,6 +48,18 @@ pipeline {
             }
         }
         
+        stage('Deploy to Minikube') { /* Etapa de despliegue en Minikube */
+            steps {
+                script {
+                    sh '''
+                    kubectl config use-context minikube
+                    kubectl create namespace mundose || true
+                    kubectl set image deployment/nginx-deployment nginx=$NEXUS_GROUP/$IMAGEN:$BUILD_NUMBER -n mundose || kubectl create deployment nginx-deployment --image=$NEXUS_GROUP/$IMAGEN:$BUILD_NUMBER -n mundose
+                    '''
+                }
+            }
+        }
+        
         stage('Clean Up') { /* Etapa de limpieza */
             steps {
                 sh "docker rmi -f $NEXUS_GROUP/$IMAGEN:$BUILD_NUMBER" /* Eliminamos la imagen de Docker localmente */
