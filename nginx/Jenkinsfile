@@ -44,6 +44,7 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
                     kubectl create namespace mundose || true
                     kubectl create deployment nginx-deployment --image=${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER --namespace=mundose
                     kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80 --target-port=80 --namespace=mundose
