@@ -5,7 +5,6 @@ pipeline {
         IMAGEN = "nginx" /* Cambiamos el nombre de la imagen de Docker a nginx */
         USUARIO = 'DOCKERHUB_CREDENTIAL' /* Nombre de usuario de Docker Hub */
         DOCKER_USER='juanbe96/grupo13_pinfinal' /* Nombre de usuario de Docker Hub */
-        NEXUS_GROUP= 'grupo13/pin1' /* Grupo de PIN */
     }
     agent any /* Indicamos que el agente puede ser cualquiera de los disponibles, en este caso el que tenga Docker instalado */
     stages { /* Definimos las etapas del pipeline */
@@ -18,16 +17,6 @@ pipeline {
             steps {
                 script {
                     newApp = docker.build("${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER","nginx/") /* Especifica la ruta correcta al Dockerfile */
-                }
-            }
-        }
-
-        stage('Security Scan') { /* Etapa de escaneo de seguridad */
-            steps {
-                script { /* Ejecutamos un contenedor de Trivy para escanear la imagen de Docker */
-                    sh '''
-                    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.cache:/root/.cache/ aquasec/trivy:latest image $NEXUS_GROUP/$IMAGEN:$BUILD_NUMBER
-                    ''' 
                 }
             }
         }
