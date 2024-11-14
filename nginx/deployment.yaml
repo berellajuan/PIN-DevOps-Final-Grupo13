@@ -14,6 +14,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: /grupo13/pinfinal/nginx:5
+        image: juanbe96/nginx:22
         ports:
         - containerPort: 80
+      imagePullSecrets:
+      - name: nexus-secret
