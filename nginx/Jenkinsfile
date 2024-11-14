@@ -52,9 +52,29 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kubectl config use-context minikube
-                    kubectl create namespace mundose || true
-                    kubectl set image deployment/nginx-deployment nginx=$NEXUS_GROUP/$IMAGEN:$BUILD_NUMBER -n mundose || kubectl create deployment nginx-deployment --image=$NEXUS_GROUP/$IMAGEN:$BUILD_NUMBER -n mundose
+                    kubectl apply -f - <<EOF
+                    apiVersion: apps/v1
+                    kind: Deployment
+                    metadata:
+                      name: nginx-deployment
+                      namespace: mundose
+                    spec:
+                      replicas: 1
+                      selector:
+                        matchLabels:
+                          app: nginx
+                      template:
+                        metadata:
+                          labels:
+                            app: nginx
+                        spec:
+                          containers:
+                          - name: nginx
+                            image: $NEXUS_GROUP/$IMAGEN:$BUILD_NUMBER
+                            ports:
+                            - containerPort: 80
+                    EOF
+                    kubectl expose deployment nginx-deployment --type=NodePort --port=80 --namespace=mundose
                     '''
                 }
             }
