@@ -40,6 +40,16 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh '''
+                    kubectl create deployment nginx-deployment --image=${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER
+                    kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80 --target-port=80
+                    '''
+                }
+            }
+        }
         
         stage('Clean Up') { /* Etapa de limpieza */
             steps {
