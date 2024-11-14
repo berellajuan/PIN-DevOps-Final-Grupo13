@@ -16,7 +16,7 @@ pipeline {
         stage('Build') { /* Etapa de construcción de la imagen de Docker */
             steps {
                 script {
-                    newApp = docker.build("${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER") /* Especifica la ruta correcta al Dockerfile */
+                    newApp = docker.build("${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER","nginx/")) /* Especifica la ruta correcta al Dockerfile */
                 }
             }
         }
