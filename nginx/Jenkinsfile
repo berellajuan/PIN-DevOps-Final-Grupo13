@@ -40,17 +40,25 @@ pipeline {
                 }
             }
         }
+        stage('Prepare Kubernetes Deployment') {
+            steps {
+                script {
+                    sh '''
+                    sed -i 's|image: juanbe96/grupo13_nginx_pinfinal:latest|image: juanbe96/grupo13_nginx_pinfinal:${BUILD_NUMBER}|' nginx-deployment.yaml
+                    '''
+                }
+            }
+        }
         stage('Deploy to Kubernetes') {
             steps {
                 script {
                     sh '''
                     export KUBECONFIG=/var/jenkins_home/.kube/config
-                    kubectl apply -f nginx/nginx-deployment.yaml --namespace=mundose
+                    kubectl apply -f nginx-deployment.yaml --namespace=mundose
                     '''
                 }
             }
         }
-        
         stage('Clean Up') { /* Etapa de limpieza */
             steps {
                 sh "docker rmi ${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER" /* Eliminamos la imagen de Docker localmente */
