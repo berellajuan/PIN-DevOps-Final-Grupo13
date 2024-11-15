@@ -54,7 +54,7 @@ pipeline {
                 script {
                     sh '''
                     export KUBECONFIG=/var/jenkins_home/.kube/config
-                    kubectl apply -f nginx-deployment.yaml --namespace=mundose
+                    kubectl apply -f nginx/nginx-deployment.yaml --namespace=mundose
                     '''
                 }
             }
