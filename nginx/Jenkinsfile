@@ -59,6 +59,16 @@ pipeline {
                 }
             }
         }
+        stage('Deploy Ingress') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
+                    kubectl apply -f nginx/nginx-ingress.yaml --namespace=mundose
+                    '''
+                }
+            }
+        }
         stage('Clean Up') { /* Etapa de limpieza */
             steps {
                 sh "docker rmi ${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER" /* Eliminamos la imagen de Docker localmente */
