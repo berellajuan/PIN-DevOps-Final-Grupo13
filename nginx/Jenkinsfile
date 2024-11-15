@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i 's|image: juanbe96/grupo13_nginx_pinfinal:latest|image: juanbe96/grupo13_nginx_pinfinal:${BUILD_NUMBER}|' nginx/nginx-deployment.yaml
+                    sed -i "s|image: juanbe96/grupo13_nginx_pinfinal:latest|image: juanbe96/grupo13_nginx_pinfinal:${BUILD_NUMBER}|" nginx/nginx-deployment.yaml
                     '''
                 }
             }
