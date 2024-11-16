@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    environment {
+        KUBECONFIG = credentials('kubeconfig-credential-id') // Reemplaza con el ID de tus credenciales de kubeconfig en Jenkins
+    }
+
+    stages {
+        stage('Clone') { /* Etapa de clonación del repositorio */
+            steps {
+                git branch: "main", url: 'https://github.com/berellajuan/PIN-DevOps-Final-Grupo13.git' /* Clonamos el repositorio de GitHub */
+            }
+        }
+        stage('Apply node-explorer ') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
+                    kubectl apply -f prometheus/node-explorer/node-exploter-deployment.yaml --namespace=mundose
+                    '''
+                }
+            }
+        }
+
+        stage('Apply ClusterRole') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
+                    kubectl apply -f prometheus/prometheus-clusterrole.yaml --namespace=monitoreo
+                    '''
+                }
+            }
+        }
+
+        stage('Apply ClusterRoleBinding') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
+                    kubectl apply -f prometheus/prometheus-clusterrolebinding.yaml --namespace=monitore
+                    '''
+                }
+            }
+        }
+
+        stage('Apply ConfigMap') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
+                    kubectl apply -f prometheus/prometheus.yml --namespace=monitore
+                    '''
+                }
+            }
+        }
+
+        stage('Apply Deployment') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
+                    kubectl apply -f prometheus/prometheus-deployment.yaml --namespace=monitore
+                    '''
+                }
+            }
+        }
+
+        stage('Apply Ingress') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=/var/jenkins_home/.kube/config
+                    kubectl apply -f prometheus/prometheus-ingress.yaml --namespace=monitore
+                    '''
+                }
+            }
+        }
+    }
+}

@@ -10,7 +10,7 @@ spec:
   - host: dev-env.grupo13.com
     http:
       paths:
-      - path: /service/nginx
+      - path: /services/nginx
         pathType: Prefix
         backend:
           service:

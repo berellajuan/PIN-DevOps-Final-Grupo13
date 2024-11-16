@@ -15,9 +15,53 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: juanbe96/grupo13_nginx_pinfinal:latest
+        image: juanbe96/grupo13_nginx_pinfinal:cambiartag
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: nginx-metrics
+          mountPath: /etc/nginx/conf.d
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+      - name: nginx-exporter
+        image: nginx/nginx-prometheus-exporter:0.9.0
+        args:
+        - -nginx.scrape-uri=http://localhost:8088/stub_status
+        ports:
+        - containerPort: 9113
+        volumeMounts:
+        - name: nginx-metrics
+          mountPath: /etc/nginx/conf.d
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+          requests:
+            memory: "128Mi"
+            cpu: "125m"
+      volumes:
+      - name: nginx-metrics
+        configMap:
+          name: nginx-metrics-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-metrics-config
+  namespace: mundose
+data:
+  nginx-metrics.conf: |
+    server {
+      listen 8088;
+      location /stub_status {
+        stub_status;
+      }
+    }
 ---
 apiVersion: v1
 kind: Service
