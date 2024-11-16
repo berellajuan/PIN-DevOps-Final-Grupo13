@@ -37,7 +37,7 @@ pipeline {
                 script {
                     sh '''
                     export KUBECONFIG=${KUBECONFIG}
-                    kubectl apply -f prometheus/prometheus-clusterrolebinding.yaml --namespace=monitore
+                    kubectl apply -f prometheus/prometheus-clusterrolebinding.yaml --namespace=monitoreo
                     '''
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
                 script {
                     sh '''
                     export KUBECONFIG=${KUBECONFIG}
-                    kubectl apply -f prometheus/prometheus.yml --namespace=monitore
+                    kubectl apply -f prometheus/prometheus.yml --namespace=monitoreo
                     '''
                 }
             }
@@ -59,7 +59,7 @@ pipeline {
                 script {
                     sh '''
                     export KUBECONFIG=${KUBECONFIG}
-                    kubectl apply -f prometheus/prometheus-deployment.yaml --namespace=monitore
+                    kubectl apply -f prometheus/prometheus-deployment.yaml --namespace=monitoreo
                     '''
                 }
             }
@@ -70,7 +70,7 @@ pipeline {
                 script {
                     sh '''
                     export KUBECONFIG=${KUBECONFIG}
-                    kubectl apply -f prometheus/prometheus-ingress.yaml --namespace=monitore
+                    kubectl apply -f prometheus/prometheus-ingress.yaml --namespace=monitoreo
                     '''
                 }
             }
