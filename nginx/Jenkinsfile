@@ -71,7 +71,7 @@ pipeline {
         }
         stage('Clean Up') { /* Etapa de limpieza */
             steps {
-                sh "docker rmi ${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER" /* Eliminamos la imagen de Docker localmente */
+                sh "docker rmi -f ${DOCKER_USER}/$IMAGEN:$BUILD_NUMBER" /* Eliminamos la imagen de Docker localmente */
             }
         }
     }
