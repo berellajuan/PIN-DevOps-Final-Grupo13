@@ -16,7 +16,7 @@ Este proyecto implementa un clúster local de Kubernetes con **Minikube**, integ
 - **GitHub:** Repositorio utilizado por Jenkins para obtener las definiciones de los pipelines y despliegues.
 - **Prometheus:** Herramienta para la recolección de métricas.
     - **URL Interna**: http://prometheus.monitoreo.svc.cluster.local:9090/services/prometheus
-    - **URL Externa**: http://dev-env.grupo13.com/services/grafana
+    - **URL Externa**: http://dev-env.grupo13.com/services/prometheus
 - **Grafana:** Plataforma para la visualización de métricas.
     - **Dashboard**: Node Exporter Full - ID **1860**
     - **URL Externa**: http://dev-env.grupo13.com/services/grafana
