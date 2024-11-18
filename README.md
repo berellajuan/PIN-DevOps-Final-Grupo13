@@ -19,3 +19,9 @@ kubectl create configmap prometheus-config --from-file=prometheus.yml --namespac
 node_cpu_seconds_total
 node_memory_MemAvailable_bytes
 ```
+
+## Prometheus
+```
+http://prometheus.monitoreo.svc.cluster.local:9090/services/prometheus
+1860
+```

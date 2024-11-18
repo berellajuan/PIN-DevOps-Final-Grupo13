@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    environment {
+        KUBECONFIG = '/var/jenkins_home/.kube/config'
+    }
+
+    stages {
+        stage('Clone') { /* Etapa de clonación del repositorio */
+            steps {
+                git branch: "main", url: 'https://github.com/berellajuan/PIN-DevOps-Final-Grupo13.git' /* Clonamos el repositorio de GitHub */
+            }
+        }
+        stage('Apply Grafana') {
+            steps {
+                script {
+                    sh '''
+                    export KUBECONFIG=${KUBECONFIG}
+                    kubectl apply -f grafana/grafana-deployment.yaml --namespace=monitoreo
+                    '''
+                }
+            }
+        }
+    }
+}
