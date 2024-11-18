@@ -10,18 +10,10 @@ data:
       evaluation_interval: 15s
 
     scrape_configs:
-      # Monitorear únicamente el namespace mundose
-      - job_name: 'mundose'
-        kubernetes_sd_configs:
-          - role: pod
-            namespaces:
-              names:
-                - mundose
-        relabel_configs:
-          - action: keep
-            source_labels: [__meta_kubernetes_namespace]
-            regex: mundosemod
-
+      - job_name: 'prometheus'
+        static_configs:
+          - targets: ['localhost:9090']
+        metrics_path: /services/prometheus/metrics
       # Configuración para Node Exporter
       - job_name: 'node-exporter'
         kubernetes_sd_configs:
@@ -49,3 +41,15 @@ data:
           - source_labels: [__meta_kubernetes_pod_container_port_number]
             action: keep
             regex: "9113"
+      # Configuración para Grafana
+      - job_name: 'grafana'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - monitoreo
+        metrics_path: /metrics
+        relabel_configs:
+          - action: keep
+            source_labels: [__meta_kubernetes_pod_label_app]
+            regex: grafana

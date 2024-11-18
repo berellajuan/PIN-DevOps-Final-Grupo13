@@ -16,7 +16,7 @@ spec:
         app: prometheus
       annotations:
         prometheus.io/scrape: "true"        # Habilita el scraping de Prometheus
-        prometheus.io/port: "80"           # Define el puerto donde Prometheus buscará métricas
+        prometheus.io/port: "9090"           # Define el puerto donde Prometheus buscará métricas
         prometheus.io/path: "/metrics"     # Define la ruta donde se exponen las métricas
     spec:
       containers:
