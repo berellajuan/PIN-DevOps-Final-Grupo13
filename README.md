@@ -46,5 +46,5 @@ Este proyecto implementa un clúster local de Kubernetes con **Minikube**, integ
    - Verifiqué que Prometheus recolectara métricas de los pods y servicios del clúster.
 
 5. **Configuración de Grafana**
-   - Configuré Grafana para exponer su interfaz en la URL http://dev-env.grupo13.com/services/grafana
+   - Configuré Grafana para exponer su interfaz en la URL `http://dev-env.grupo13.com/services/grafana`.
    - Importé los dashboards necesarios para visualizar las métricas recolectadas.
