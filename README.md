@@ -6,7 +6,7 @@ Este proyecto implementa un clúster local de Kubernetes con **Minikube**, integ
 
 ## Arquitectura del Proyecto
 
-![Arquitectura del Proyecto](path/to/architecture-diagram.png)
+![Arquitectura del Proyecto](https://raw.githubusercontent.com/berellajuan/PIN-DevOps-Final-Grupo13/e176f6902b771a8a08b77fa62e10c4577cc85be6/arquitectura/arquitectura-pin-final-mundose.svg)
 
 ## Herramientas Utilizadas
 
