@@ -32,9 +32,4 @@ RUN mkdir -p /var/jenkins_home/.kube && \
     chown -R jenkins:jenkins /var/jenkins_home/.kube
 ENV KUBECONFIG=/var/jenkins_home/.kube/config
 
-# docker run -d -u $(stat -c '%u:%g' /var/run/docker.sock) --network="host" -p 8080:8080 -v jenkinsvol:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins-pin-final jenkins-fin-final:v1
-
-# Copiar certificados de Minikube al contenedor de Jenkins
-# Estos comandos deben ejecutarse después de que el contenedor esté en funcionamiento
-# docker cp ~/.minikube/profiles/minikube/client.crt jenkins-container:/var/jenkins_home/minikube/client.crt
-# docker cp ~/.minikube/profiles/minikube/client.key jenkins-container:/var/jenkins_home/minikube/client.key
+# docker run -d -u $(stat -c '%u:%g' /var/run/docker.sock) --network="host" -p 8080:8080 -v jenkinsvol:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins-pin-final jenkins-local:v1
