@@ -1,0 +1,32 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /var/jenkins_home/minikube/ca.crt
+    extensions:
+    - extension:
+        last-update: Wed, 13 Nov 2024 19:49:12 -03
+        provider: minikube.sigs.k8s.io
+        version: v1.33.1
+      name: cluster_info
+    server: https://192.168.49.2:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: Wed, 13 Nov 2024 19:49:12 -03
+        provider: minikube.sigs.k8s.io
+        version: v1.33.1
+      name: context_info
+    namespace: mundose
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /var/jenkins_home/minikube/client.crt
+    client-key: /var/jenkins_home/minikube/client.key
